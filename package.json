@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "crypto-assets-manager",
   "private": true,
   "scripts": {
     "build": "turbo build",
