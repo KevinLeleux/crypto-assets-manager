@@ -1,25 +1,25 @@
 "use client";
 
 import { Field } from "@/components/ui/field";
-import { formSignupAction } from "@/lib/actions/formSignup";
-import { formSignupSchema } from "@/lib/validations/auth";
+import { formSigninAction } from "@/lib/actions/formSignin";
+import { formSigninSchema } from "@/lib/validations/auth";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useActionState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export default function SignupForm() {
-  const [state, formAction] = useActionState(formSignupAction, { message: "" });
+export default function SigninForm() {
+  const [state, formAction] = useActionState(formSigninAction, { message: "" });
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<z.output<typeof formSignupSchema>>({
-    resolver: zodResolver(formSignupSchema),
+  } = useForm<z.output<typeof formSigninSchema>>({
+    resolver: zodResolver(formSigninSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
       ...(state.fields ?? {}),
@@ -52,14 +52,6 @@ export default function SignupForm() {
           </Stack>
         )}
         <Field
-          invalid={!!errors.name}
-          errorText={errors.name?.message}>
-          <Input
-            {...register("name")}
-            placeholder="Nom"
-          />
-        </Field>
-        <Field
           invalid={!!errors.email}
           errorText={errors.email?.message}>
           <Input
@@ -73,14 +65,13 @@ export default function SignupForm() {
           errorText={errors.password?.message}>
           <Input
             {...register("password")}
-            placeholder="Mot de passe"
+            placeholder="Password"
             type="password"
           />
         </Field>
-        <Button
-          type="submit"
-          disabled={isSubmitting}>
-          {isSubmitting ? "Inscription en cours" : "S'inscrire"}
+        <Link href="#">Mot de passe oublié ?</Link>
+        <Button type="submit">
+          {isSubmitting ? "Connexion en cours" : "Se connecter"}
         </Button>
       </Stack>
     </form>

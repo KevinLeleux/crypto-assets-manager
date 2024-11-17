@@ -1,8 +1,7 @@
 "use server";
 
-import { formSignupSchema } from "@/lib/validations/auth";
-import { redirect } from "next/navigation";
 import { BACKEND_URL } from "../constants";
+import { formSigninSchema } from "../validations/auth";
 
 export type FormState = {
   message: string;
@@ -10,12 +9,12 @@ export type FormState = {
   issues?: string[];
 };
 
-export async function formSignupAction(
+export async function formSigninAction(
   state: FormState,
   data: FormData
 ): Promise<FormState> {
   const formData = Object.fromEntries(data);
-  const validationFields = formSignupSchema.safeParse(formData);
+  const validationFields = formSigninSchema.safeParse(formData);
 
   if (!validationFields.success) {
     const fields: Record<string, string> = {};
@@ -29,20 +28,23 @@ export async function formSignupAction(
     };
   }
 
-  const response = await fetch(`${BACKEND_URL}/auth/signup`, {
+  const response = await fetch(`${BACKEND_URL}/auth/signin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(validationFields.data),
   });
 
   if (response.ok) {
-    redirect("/auth/signin");
+    const result = await response.json();
+    // create the session for the authenticated user
+    console.log({ result });
+    return result;
   } else {
     return {
       message:
-        response.status === 409
-          ? "L'utilisateur existe déjà"
-          : "Erreur lors de l'inscription",
+        response.status === 401
+          ? "Email ou mot de passe incorrect"
+          : response.statusText,
     };
   }
 }

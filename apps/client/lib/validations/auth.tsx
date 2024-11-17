@@ -16,3 +16,14 @@ export const formSignupSchema = z.object({
     })
     .trim(),
 });
+
+export const formSigninSchema = z.object({
+  email: z
+    .string()
+    .email({ message: "Veuillez entrer un email valide" })
+    .trim(),
+  password: z
+    .string()
+    .min(1, { message: "Doit contenir au moins 1 caractère" })
+    .trim(),
+});
