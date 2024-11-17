@@ -5,7 +5,7 @@ import { formSignupAction } from "@/lib/actions/formSignup";
 import { formSignupSchema } from "@/lib/validations/auth";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useActionState, useRef } from "react";
+import { startTransition, useActionState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,10 +32,14 @@ export default function SignupForm() {
     <form
       ref={formRef}
       action={formAction}
-      onSubmit={handleSubmit((_, event) => {
-        event?.preventDefault();
-        formRef.current?.submit();
-      })}>
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        handleSubmit(() => {
+          startTransition(() => {
+            formAction(new FormData(formRef.current!));
+          });
+        })(ev);
+      }}>
       <Stack>
         {state.message !== "" && !state.issues && (
           <Text color="red.500">{state.message}</Text>
