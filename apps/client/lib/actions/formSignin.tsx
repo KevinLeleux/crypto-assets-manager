@@ -1,6 +1,8 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { BACKEND_URL } from "../constants";
+import { createSession } from "../session";
 import { formSigninSchema } from "../validations/auth";
 
 export type FormState = {
@@ -36,9 +38,8 @@ export async function formSigninAction(
 
   if (response.ok) {
     const result = await response.json();
-    // create the session for the authenticated user
-    console.log({ result });
-    return result;
+    await createSession({ user: { id: result.id, name: result.name } });
+    redirect("/");
   } else {
     return {
       message:

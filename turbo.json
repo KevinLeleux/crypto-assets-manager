@@ -14,7 +14,7 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
-      "env": ["BACKEND_URL"],
+      "env": ["BACKEND_URL", "SESSION_SECRET"],
       "cache": false,
       "persistent": true
     }
