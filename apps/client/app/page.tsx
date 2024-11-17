@@ -2,7 +2,7 @@ import SigninButton from "@/components/signinButton";
 import { Stack } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
   return (
     <Stack>
       <SigninButton />

@@ -38,7 +38,10 @@ export async function formSigninAction(
 
   if (response.ok) {
     const result = await response.json();
-    await createSession({ user: { id: result.id, name: result.name } });
+    await createSession({
+      user: { id: result.id, name: result.name },
+      accessToken: result.accessToken,
+    });
     redirect("/");
   } else {
     return {
