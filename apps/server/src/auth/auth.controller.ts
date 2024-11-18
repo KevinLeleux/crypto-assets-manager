@@ -11,6 +11,7 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
+import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -26,6 +27,13 @@ export class AuthController {
   loginUser(@Request() req: ExpressRequest) {
     const user = req.user as { id: string; name: string };
     return this.authService.login(user.id, user.name);
+  }
+
+  @UseGuards(RefreshAuthGuard)
+  @Post('refresh')
+  refreshToken(@Request() req: ExpressRequest) {
+    const user = req.user as { id: string; name: string };
+    return this.authService.refreshTokens(user.id, user.name);
   }
 
   @UseGuards(JwtAuthGuard)
