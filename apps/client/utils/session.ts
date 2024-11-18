@@ -10,7 +10,7 @@ export type Session = {
     name: string;
   };
   accessToken: string;
-  // refreshToken: string;
+  refreshToken: string;
 };
 
 const sessionKey = process.env.SESSION_SECRET!;

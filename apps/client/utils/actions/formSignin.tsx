@@ -41,6 +41,7 @@ export async function formSigninAction(
     await createSession({
       user: { id: result.id, name: result.name },
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     });
     redirect("/");
   } else {

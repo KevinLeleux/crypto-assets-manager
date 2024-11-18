@@ -6,6 +6,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import jwtConfig from './config/jwt.config';
+import refreshConfig from './config/refresh.config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
@@ -13,6 +14,7 @@ import { LocalStrategy } from './strategies/local.strategy';
   imports: [
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
+    ConfigModule.forFeature(refreshConfig),
   ],
   controllers: [AuthController],
   providers: [
