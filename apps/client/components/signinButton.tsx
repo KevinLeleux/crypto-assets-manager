@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/session";
+import { getSession } from "@/utils/session";
 import { Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 

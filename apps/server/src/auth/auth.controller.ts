@@ -32,6 +32,8 @@ export class AuthController {
   @Get('protected')
   getAll(@Request() req: ExpressRequest) {
     const user = req.user as { id: string };
-    return `Now you're in the protected route. This is your user id: ${user.id}`;
+    return {
+      message: `Now you're in the protected route. This is your user id: ${user.id}`,
+    };
   }
 }

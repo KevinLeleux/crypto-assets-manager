@@ -1,8 +1,8 @@
 "use client";
 
 import { Field } from "@/components/ui/field";
-import { formSigninAction } from "@/lib/actions/formSignin";
-import { formSigninSchema } from "@/lib/validations/auth";
+import { formSigninAction } from "@/utils/actions/formSignin";
+import { formSigninSchema } from "@/utils/validations/auth";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 "use server";
 
-import { formSignupSchema } from "@/lib/validations/auth";
+import { formSignupSchema } from "@/utils/validations/auth";
 import { redirect } from "next/navigation";
 import { BACKEND_URL } from "../constants";
 
